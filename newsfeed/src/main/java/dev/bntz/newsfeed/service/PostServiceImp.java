@@ -8,6 +8,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -18,6 +19,7 @@ public class PostServiceImp implements PostService {
     @Override
     public Mono<Post> create(Post post) {
         post.setId(UUID.randomUUID().toString());
+        post.setCreateDate(LocalDateTime.now());
         return postRepository.save(post);
     }
 
@@ -38,16 +40,11 @@ public class PostServiceImp implements PostService {
 
     @Override
     public Flux<Post> streamPostUpdates(String slug) {
-        return Flux.interval(Duration.ofSeconds(3)).flatMap(tick -> {
-            Post p = new Post();
+        int seconds = 3;
+        return Flux.interval(Duration.ofSeconds(seconds)).flatMap(tick -> {
 
-            p.setId(UUID.randomUUID().toString());
-            p.setTitle(String.format("%s : %s", slug, tick));
-            p.setContent("Lorme Ipsum");
+            return postRepository.getUpdates(slug, LocalDateTime.now().minusSeconds(seconds));
 
-
-            return Mono.just(p);
-
-        }).log();
+        });
     }
 }

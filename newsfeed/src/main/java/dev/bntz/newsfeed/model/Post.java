@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Document(collection="posts")
 @Data
 @AllArgsConstructor
@@ -15,6 +17,7 @@ public class Post {
     private String title;
     private String slug;
     private String content;
+    private LocalDateTime createDate;
 
     public void generateSlug() {
 
