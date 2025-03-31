@@ -3,13 +3,14 @@ package dev.bntz.newsfeed.service;
 import dev.bntz.newsfeed.model.Post;
 import dev.bntz.newsfeed.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +31,8 @@ public class PostServiceImp implements PostService {
 
     @Override
     public Flux<Post> getAllPosts() {
-        return postRepository.findAll();
+
+        return postRepository.findAll(Sort.by("createDate").descending());
     }
 
     @Override

@@ -11,8 +11,10 @@ import java.time.LocalDateTime;
 @Repository
 public interface PostRepository extends ReactiveMongoRepository<Post, String> {
 
+
+    @Query(sort="{'createDate': -1}")
     Flux<Post> findBySlug(String slug);
 
-    @Query("{ 'slug': ?0, 'createDate': { '$gt': ?1 } }")
+    @Query(value="{ 'slug': ?0, 'createDate': { '$gt': ?1 } }", sort="{'createDate': -1}")
     Flux<Post> getUpdates(String slug, LocalDateTime createDate);
 }
