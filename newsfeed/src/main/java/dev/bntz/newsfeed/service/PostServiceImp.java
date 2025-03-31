@@ -42,7 +42,7 @@ public class PostServiceImp implements PostService {
 
     @Override
     public Flux<Post> streamPostUpdates(String slug) {
-        int seconds = 3;
+        int seconds = 1;
         return Flux.interval(Duration.ofSeconds(seconds)).flatMap(tick -> {
 
             return postRepository.getUpdates(slug, LocalDateTime.now().minusSeconds(seconds));
