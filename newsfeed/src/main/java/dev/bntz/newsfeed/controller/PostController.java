@@ -35,6 +35,11 @@ public class PostController {
         return postService.getAllPosts();
     }
 
+    @GetMapping(value="/live/{slug}")
+    public Flux<Post> getBySlug(@PathVariable String slug) {
+        return postService.getPostsBySlug(slug);
+    }
+
     @GetMapping(value="/stream/{slug}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Post> stream(@PathVariable String slug) {
         return postService.streamPostUpdates(slug);
