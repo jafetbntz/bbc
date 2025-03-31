@@ -7,7 +7,7 @@ export default async function Home() {
   let data: IPost[] = await res.json();
 
   return (
-    <div className="grid grid-cols-3 gap-3 p-10">
+    <div className="grid grid-cols-3 gap-3 pl-20 pr-20 pt-10">
       {data.map((p) => (
         <PostCardProps key={p.id} post={p}></PostCardProps>
       ))}

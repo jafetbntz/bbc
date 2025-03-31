@@ -1,5 +1,6 @@
 import { IPost } from "@/app/model/post.interface";
 import nextConfig from "../../../../next.config";
+import { formatDistance } from "date-fns";
 
 
 
@@ -13,11 +14,28 @@ export default async function PostDetailPage({params}: PostDetailPageProps) {
     const { postId } = await params;
 
     const res = await fetch(`${nextConfig.apiURL}/posts/${postId}`);
-    let data: IPost = await res.json();
+    let post: IPost = await res.json();
+
+    const publishingDate = post.createDate ? formatDistance(post.createDate, new Date(), { addSuffix: true }): null;
+    
+
     return (
         <div>
-                    <h1>{data.title}</h1>
-                    <p>{data.content}</p>
+
+            <div className="p-20">
+                <h1 className="text-2xl text-bold">{post.title}</h1>
+                <hr/>
+                {
+                    (
+                    publishingDate &&
+                    <p className="text-gray italic">{publishingDate}</p>
+                    )
+              }
+                <br/>
+                <p>{post.content}</p>
+
+            </div>
+
         </div>
     )
 }

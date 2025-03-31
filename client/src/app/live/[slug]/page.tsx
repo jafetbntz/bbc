@@ -66,7 +66,7 @@ export default function LiveNewsPage({ params }: LiveNewsPageProps) {
       </div>
       <div className="grid grid-cols-1 gap-1 p-20">
         {data.map((p) => (
-          <PostCard post={p} key={p.id}></PostCard>
+          <PostCard post={p} key={p.id}  hideLive={true}></PostCard>
         ))}
       </div>
     </div>

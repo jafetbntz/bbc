@@ -3,10 +3,11 @@ import { IPost } from "../model/post.interface";
 import { formatDistance } from "date-fns";
 
 export type PostCardPropsProps = {
+    hideLive?: boolean,
     post: IPost
 }
   
-  export default function PostCardProps( {post}: PostCardPropsProps) {
+  export default function PostCardProps( {post, hideLive = false}: PostCardPropsProps) {
         const publishingDate = post.createDate ? formatDistance(post.createDate, new Date(), { addSuffix: true }): null;
         return (
             <div className="card bg-base-100 card-xs shadow-sm p-1">
@@ -24,7 +25,7 @@ export type PostCardPropsProps = {
               <div className="justify-end card-actions">
                 <Link href={`/posts/${post.id}`} className="btn btn-ghost">Read more</Link>
 
-                {(post.slug && <Link href={`/live/${post.slug}`} className="btn btn-primary">Go live</Link>)}
+                {((post.slug && !hideLive) && <Link href={`/live/${post.slug}`} className="btn btn-primary">Go live</Link>)}
                 
               </div>
             </div>
