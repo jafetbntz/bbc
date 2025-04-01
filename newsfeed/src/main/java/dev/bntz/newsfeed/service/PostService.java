@@ -11,6 +11,6 @@ public interface PostService {
     Flux<Post> getAllPosts();
     Flux<Post> getPostsBySlug(String slug);
     Flux<Post> streamPostUpdates(String slug);
-
+    Flux<Object> streamPostUpdatesFromRedis(String slug);
 
 }

@@ -41,8 +41,8 @@ public class PostController {
     }
 
     @GetMapping(value="/stream/{slug}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Post> stream(@PathVariable String slug) {
-        return postService.streamPostUpdates(slug);
+    public Flux<Object> stream(@PathVariable String slug) {
+        return postService.streamPostUpdatesFromRedis(slug);
     }
 
 }
